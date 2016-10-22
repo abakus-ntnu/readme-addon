@@ -59,9 +59,29 @@ function replaceHyphensWithDash() {
   body.replaceText(' --? ', ' – ');
 }
 
+/**
+ * Bold occurences of "readme". Lower-case only.
+ */
+function boldReadme() {
+  var body = DocumentApp.getActiveDocument().getBody();
+  var text = body.editAsText();
+  var textString = body.getText();
+
+  var offset = 0
+  var readmeIndex = textString.indexOf('readme');
+  while (readmeIndex > -1) {
+    Logger.log(readmeIndex);
+    offset = readmeIndex + 5;
+    text.setBold(readmeIndex, offset, true);
+    var nextIndex = textString.slice(offset).indexOf('readme');
+    readmeIndex = nextIndex > -1 ? offset + nextIndex : -1;
+  }
+}
+
 function onOpen(e) {
   DocumentApp.getUi().createAddonMenu()
     .addItem('Bold all italic', 'bold2italic')
+    .addItem('Bold readme')
     .addItem('Replace quotes', 'replaceQuotes')
     .addItem('Replace hyphens with dashes', 'replaceHyphensWithDash')
     .addToUi();
