@@ -78,10 +78,18 @@ function boldReadme() {
   }
 }
 
+function doAll() {
+  bold2italic();
+  boldReadme();
+  replaceQuotes();
+  replaceHyphensWithDash();
+}
+
 function onOpen(e) {
   DocumentApp.getUi().createAddonMenu()
+    .addItem('Do all', 'doAll')
     .addItem('Bold all italic', 'bold2italic')
-    .addItem('Bold readme')
+    .addItem('Bold readme', 'boldReadme')
     .addItem('Replace quotes', 'replaceQuotes')
     .addItem('Replace hyphens with dashes', 'replaceHyphensWithDash')
     .addToUi();
