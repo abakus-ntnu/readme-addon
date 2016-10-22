@@ -88,6 +88,7 @@ function doAll() {
 function onOpen(e) {
   DocumentApp.getUi().createAddonMenu()
     .addItem('Do all', 'doAll')
+    .addSeparator()
     .addItem('Bold all italic', 'bold2italic')
     .addItem('Bold readme', 'boldReadme')
     .addItem('Replace quotes', 'replaceQuotes')
