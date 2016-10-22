@@ -15,7 +15,7 @@ function bold2italic() {
   var body = DocumentApp.getActiveDocument().getBody();
   var text = body.editAsText();
   var startItalic = 0;
-  var italic = false; 
+  var italic = false;
   for (var i = 0; i < text.getText().length; i++) {
     if (text.isItalic(i) && !italic) {
       startItalic = i;
@@ -51,10 +51,18 @@ function replaceQuotes() {
   }
 }
 
+/**
+ * Convert " - " and " -- " to " – "
+ */
+function replaceHyphensWithDash() {
+  var body = DocumentApp.getActiveDocument().getBody();
+  body.replaceText(' --? ', ' – ');
+}
+
 function onOpen(e) {
   DocumentApp.getUi().createAddonMenu()
     .addItem('Bold all italic', 'bold2italic')
     .addItem('Replace quotes', 'replaceQuotes')
+    .addItem('Replace hyphens with dashes', 'replaceHyphensWithDash')
     .addToUi();
 }
-
