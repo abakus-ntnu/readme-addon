@@ -54,7 +54,7 @@ function replaceQuotes() {
 /**
  * Convert " - " and " -- " to " – "
  */
-function replaceHyphensWithDash() {
+function replaceHyphensWithDashes() {
   var body = DocumentApp.getActiveDocument().getBody();
   body.replaceText(' --? ', ' – ');
 }
@@ -78,20 +78,35 @@ function boldReadme() {
   }
 }
 
-function doAll() {
+function doAllGeneral() {
   bold2italic();
-  boldReadme();
   replaceQuotes();
-  replaceHyphensWithDash();
+  replaceHyphensWithDashes();
+}
+
+function doAllReadme() {
+  boldReadme();
+}
+
+function doAll() {
+  doAllGeneral();
+  doAllReadme();
 }
 
 function onOpen(e) {
   DocumentApp.getUi().createAddonMenu()
-    .addItem('Do all', 'doAll')
+    .addItem('Gjør alt', 'doAll')
     .addSeparator()
-    .addItem('Bold all italic', 'bold2italic')
-    .addItem('Bold readme', 'boldReadme')
-    .addItem('Replace quotes', 'replaceQuotes')
-    .addItem('Replace hyphens with dashes', 'replaceHyphensWithDash')
+    .addItem('Gjør alt under Generelt', 'doAllGeneral')
+    .addItem('Gjør kursiv tekst også fet', 'bold2italic')
+    .addItem('Bytt hermetegn med anførselstegn', 'replaceQuotes')
+    .addItem('Bytt bindestreker med tankestreker', 'replaceHyphensWithDashes')
+    .addSeparator()
+    .addItem('Gjør alt under readme', 'doAllReadme')
+    .addItem('Gjør readme fet', 'boldReadme')
     .addToUi();
+}
+
+function onInstall(e) {
+  onOpen(e);
 }
